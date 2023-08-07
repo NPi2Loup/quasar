@@ -64,6 +64,8 @@ export default createComponent({
       const data = {
         class:
           col.__thClass + (props.autoWidth ? ' q-table--col-auto-width' : ''),
+        'aria-sort': col.__thAriaSort,
+        scope:'col',
         style: col.headerStyle,
         onClick: evt => {
           if (col.sortable) props.props.sort(col)

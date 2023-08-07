@@ -55,7 +55,7 @@ export function useTableColumnSelection(
           (col.name === sortBy
             ? ` sorted ${descending ? 'sort-desc' : ''}`
             : ''),
-
+        __thAriaSort: (col.name === sortBy ? `${ descending === true ? 'descending' : 'ascending' }` : null),
         __tdStyle:
           col.style !== void 0
             ? typeof col.style !== 'function'
