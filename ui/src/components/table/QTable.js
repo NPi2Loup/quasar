@@ -333,7 +333,8 @@ export default createComponent({
 
       return getTableMiddle({
         class: [ 'q-table__middle scroll', props.tableClass ],
-        style: props.tableStyle
+        style: props.tableStyle,
+        title: props.title,
       }, child)
     }
 
@@ -617,7 +618,8 @@ export default createComponent({
           h('tr', { class: 'q-table__progress' }, [
             h('th', {
               class: 'relative-position',
-              colspan: computedColspan.value
+              colspan: computedColspan.value,
+              scope:'col'
             }, getProgress())
           ])
         )
@@ -900,7 +902,7 @@ export default createComponent({
     function getGridHeader () {
       const child = props.gridHeader === true
         ? [
-            h('table', { class: 'q-table' }, [
+            h('table', { class: 'q-table npi1', 'aria-label': props.title, }, [
               getTHead(h)
             ])
           ]

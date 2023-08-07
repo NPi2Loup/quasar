@@ -1,7 +1,8 @@
 import { h } from 'vue'
 
 export default function (props, content) {
-  return h('div', props, [
-    h('table', { class: 'q-table' }, content)
+  const {title, ...outerProps } = props;
+  return h('div', outerProps, [
+    h('table', { class: 'q-table', 'aria-label': props.title, }, content )
   ])
 }

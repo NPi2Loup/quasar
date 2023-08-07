@@ -45,7 +45,7 @@ export function useTableColumnSelection (props, computedPagination, hasSelection
           + (col.headerClasses !== void 0 ? ' ' + col.headerClasses : '')
           + (col.sortable === true ? ' sortable' : '')
           + (col.name === sortBy ? ` sorted ${ descending === true ? 'sort-desc' : '' }` : ''),
-
+        __thAriaSort: (col.name === sortBy ? `${ descending === true ? 'descending' : 'ascending' }` : null),
         __tdStyle: col.style !== void 0
           ? (
               typeof col.style !== 'function'
