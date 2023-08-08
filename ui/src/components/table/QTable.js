@@ -745,7 +745,7 @@ export default createComponent({
       })
 
       if (singleSelection.value && !props.grid) {
-        child.unshift(h('th', { class: 'q-table--col-auto-width' }, ' '))
+        child.unshift(h('th', { class: 'q-table--col-auto-width', scope:'col' }, ' '))
       } else if (multipleSelection.value) {
         const slot = slots['header-selection']
         const content =
@@ -761,7 +761,7 @@ export default createComponent({
                 })
               ]
 
-        child.unshift(h('th', { class: 'q-table--col-auto-width' }, content))
+        child.unshift(h('th', { class: 'q-table--col-auto-width', scope:'col' }, content))
       }
 
       return [
@@ -1019,12 +1019,18 @@ export default createComponent({
       return child
     }
 
-    function getGridHeader() {
-      const child = props.gridHeader
-        ? [h('table', { class: 'q-table', 'aria-label': props.title }, [getTHead(h)])]
-        : props.loading && slots.loading === void 0
-          ? getProgress(h)
-          : void 0
+    function getGridHeader () {
+      const child = props.gridHeader === true
+        ? [
+            h('table', { class: 'q-table', 'aria-label': props.title, }, [
+              getTHead(h)
+            ])
+          ]
+        : (
+            props.loading === true && slots.loading === void 0
+              ? getProgress(h)
+              : void 0
+          )
 
       return h('div', { class: 'q-table__middle' }, child)
     }
