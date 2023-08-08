@@ -655,7 +655,7 @@ export default createComponent({
 
       if (singleSelection.value === true && props.grid !== true) {
         child.unshift(
-          h('th', { class: 'q-table--col-auto-width' }, ' ')
+          h('th', { class: 'q-table--col-auto-width', scope:'col' }, ' ')
         )
       }
       else if (multipleSelection.value === true) {
@@ -673,7 +673,7 @@ export default createComponent({
             ]
 
         child.unshift(
-          h('th', { class: 'q-table--col-auto-width' }, content)
+          h('th', { class: 'q-table--col-auto-width', scope:'col' }, content)
         )
       }
 
@@ -902,7 +902,7 @@ export default createComponent({
     function getGridHeader () {
       const child = props.gridHeader === true
         ? [
-            h('table', { class: 'q-table npi1', 'aria-label': props.title, }, [
+            h('table', { class: 'q-table', 'aria-label': props.title, }, [
               getTHead(h)
             ])
           ]
