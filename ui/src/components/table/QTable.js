@@ -49,6 +49,8 @@ import {
 } from '../../utils/private.inject-obj-prop/inject-obj-prop.js'
 import { createComponent } from '../../utils/private.create/create.js'
 
+import uid from '../../utils/uid.js'
+
 const bottomClass = 'q-table__bottom row items-center'
 
 const virtScrollPassthroughProps = {}
@@ -176,6 +178,7 @@ export default createComponent({
     const rootRef = ref(null)
     const virtScrollRef = ref(null)
     const hasVirtScroll = computed(() => !props.grid && props.virtualScroll)
+    const titleUid = uid()
 
     const cardDefaultClass = computed(
       () =>
@@ -399,7 +402,7 @@ export default createComponent({
         {
           class: ['q-table__middle scroll', props.tableClass],
           style: props.tableStyle,
-          title: props.title,
+          titleUid: props.title ? titleUid : null,
         },
         child
       )
@@ -624,6 +627,7 @@ export default createComponent({
     }
 
     const marginalsScope = computed(() => ({
+      titleUid: titleUid,
       pagination: computedPagination.value,
       pagesNumber: pagesNumber.value,
       isFirstPage: isFirstPage.value,
@@ -671,6 +675,7 @@ export default createComponent({
               h(
                 'div',
                 {
+                  id : titleUid,
                   class: ['q-table__title', props.titleClass]
                 },
                 props.title
@@ -1022,7 +1027,7 @@ export default createComponent({
     function getGridHeader () {
       const child = props.gridHeader === true
         ? [
-            h('table', { class: 'q-table', 'aria-label': props.title, }, [
+            h('table', { class: 'q-table', 'aria-labelledby': titleUid, }, [
               getTHead(h)
             ])
           ]
