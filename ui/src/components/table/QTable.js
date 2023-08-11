@@ -26,6 +26,8 @@ import { useTableColumnSelection, useTableColumnSelectionProps } from './table-c
 import { injectProp, injectMultipleProps } from '../../utils/private/inject-obj-prop.js'
 import { createComponent } from '../../utils/private/create.js'
 
+import uid from '../../utils/uid.js'
+
 const bottomClass = 'q-table__bottom row items-center'
 
 const commonVirtPropsObj = {}
@@ -141,6 +143,7 @@ export default createComponent({
     const rootRef = ref(null)
     const virtScrollRef = ref(null)
     const hasVirtScroll = computed(() => props.grid !== true && props.virtualScroll === true)
+    const titleUid = uid()
 
     const cardDefaultClass = computed(() =>
       ' q-table__card'
@@ -334,7 +337,7 @@ export default createComponent({
       return getTableMiddle({
         class: [ 'q-table__middle scroll', props.tableClass ],
         style: props.tableStyle,
-        title: props.title,
+        titleUid: props.title ? titleUid : null,
       }, child)
     }
 
@@ -532,6 +535,7 @@ export default createComponent({
     }
 
     const marginalsScope = computed(() => ({
+      titleUid: titleUid,
       pagination: computedPagination.value,
       pagesNumber: pagesNumber.value,
       isFirstPage: isFirstPage.value,
@@ -579,6 +583,7 @@ export default createComponent({
           child.push(
             h('div', { class: 'q-table__control' }, [
               h('div', {
+                id : titleUid,
                 class: [ 'q-table__title', props.titleClass ]
               }, props.title)
             ])
@@ -902,7 +907,7 @@ export default createComponent({
     function getGridHeader () {
       const child = props.gridHeader === true
         ? [
-            h('table', { class: 'q-table', 'aria-label': props.title, }, [
+            h('table', { class: 'q-table', 'aria-labelledby': titleUid, }, [
               getTHead(h)
             ])
           ]
